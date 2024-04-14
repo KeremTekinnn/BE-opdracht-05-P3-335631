@@ -18,20 +18,32 @@
                 <thead>
                     <tr>
                         <th class="border-2 border-gray-400 px-4 py-2">Product Name</th>
-                        <th class="border-2 border-gray-400 px-4 py-2">Date Delivery</th>
+                        <th class="border-2 border-gray-400 px-4 py-2">Date Last Delivery</th>
                         <th class="border-2 border-gray-400 px-4 py-2">Amount</th>
                         <th class="border-2 border-gray-400 px-4 py-2">Date Next Delivery</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($deliveries as $delivery)
+                    @php
+                        $nextDelivery = $deliveries->where('store_amount', null)->sortBy('datenextdelivery')->first();
+                    @endphp
+
+                    @if ($nextDelivery)
                         <tr>
-                            <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->product_name }}</td>
-                            <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->datedelivery }}</td>
-                            <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->amount }}</td>
-                            <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->datenextdelivery }}</td>
+                            <td colspan="4" class="border-2 border-gray-400 px-4 py-2 text-center">
+                                {{ __('There is currently no stock of this product, the expected next delivery is: ') . $nextDelivery->datenextdelivery }}
+                            </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($deliveries as $delivery)
+                            <tr>
+                                <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->product_name }}</td>
+                                <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->datedelivery }}</td>
+                                <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->store_amount }}</td>
+                                <td class="border-2 border-gray-400 px-4 py-2">{{ $delivery->datenextdelivery }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

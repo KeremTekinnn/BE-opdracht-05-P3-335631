@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('unit');
-            $table->string('amount');
+            $table->string('amount')->nullable();
             $table->timestamps();
         });
     }

@@ -10,10 +10,10 @@ class ProductController extends Controller
     public function index()
     {
         $products = DB::table('products')
-            ->join('stores', 'products.id', '=', 'stores.product_id')
-            ->join('product_users', 'products.id', '=', 'product_users.product_id')
-            ->select('products.*', 'stores.unit', 'product_users.amount')
-            ->get();
+        ->join('stores', 'products.id', '=', 'stores.product_id')
+        ->select('products.*', 'stores.unit', 'stores.amount')
+        ->orderBy('products.barcode', 'asc')
+        ->get();
 
         return view('dashboard', ['products' => $products]);
     }

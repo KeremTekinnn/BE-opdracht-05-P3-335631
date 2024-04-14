@@ -24,7 +24,7 @@
                         <td class="border-2 border-gray-400 px-4 py-2">{{ $product->barcode }}</td>
                         <td class="border-2 border-gray-400 px-4 py-2">{{ $product->name }}</td>
                         <td class="border-2 border-gray-400 px-4 py-2">{{ $product->unit }}</td>
-                        <td class="border-2 border-gray-400 px-4 py-2">{{ $product->amount }}</td>
+                        <td class="border-2 border-gray-400 px-4 py-2">{{ $product->amount !== null ? $product->amount : '0' }}</td>
                         <td class="border-2 border-gray-400 px-4 py-2">
                             <div class="flex justify-center">
                                 <a href="{{ route('allergy.index', $product->id) }}" class="text-red-500">

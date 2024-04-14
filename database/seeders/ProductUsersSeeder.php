@@ -15,21 +15,19 @@ class ProductUsersSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+        $ids = [1, 2, 3, 4, 5]; // product_id and user_id values
 
-        // Get all product IDs
-        $productIds = DB::table('products')->pluck('id');
-
-        // Get all user IDs
-        $userIds = DB::table('users')->pluck('id');
-
-        for ($i = 0; $i < 5; $i++) {
-            DB::table('product_users')->insert([
-                'product_id' => $faker->randomElement($productIds->toArray()),
-                'user_id' => $faker->randomElement($userIds->toArray()),
-                'amount' => $faker->randomNumber(2),
-                'datedelivery' => $faker->date(),
-                'datenextdelivery' => $faker->date(),
-            ]);
+        foreach ($ids as $id) {
+            // Insert two entries for each id
+            for ($i = 0; $i < 2; $i++) {
+                DB::table('product_users')->insert([
+                    'product_id' => $id,
+                    'user_id' => $id,
+                    'amount' => $faker->randomNumber(2),
+                    'datedelivery' => $faker->date(),
+                    'datenextdelivery' => $faker->date(),
+                ]);
+            }
         }
     }
 }

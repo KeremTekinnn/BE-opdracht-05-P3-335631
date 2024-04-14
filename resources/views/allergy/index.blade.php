@@ -20,12 +20,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($allergies as $allergy)
+                    @forelse ($allergies as $allergy)
                         <tr>
                             <td class="border-2 border-gray-400 px-4 py-2">{{ $allergy->name }}</td>
                             <td class="border-2 border-gray-400 px-4 py-2">{{ $allergy->description }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="2" class="border-2 border-gray-400 px-4 py-2 text-center">{{ __('This product doesn\'t contain allergic substances.') }}</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
